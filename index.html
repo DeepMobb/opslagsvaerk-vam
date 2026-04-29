@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ROCKWOOL Opslagstavle</title>
+<title>Opslag - RW-VAM</title>
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,7 +252,6 @@
     min-height: 220px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: default;
     display: flex;
     flex-direction: column;
   }
@@ -456,6 +455,164 @@
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   }
 
+  .modal-large {
+    max-width: 70vw;
+    max-height: 85vh;
+    width: 70vw;
+  }
+
+  /* === VIEW MODAL CONTENT === */
+  .view-content {
+    padding: 0;
+  }
+
+  .view-title {
+    font-family: 'Caveat', cursive;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--rockwool-red);
+    margin-bottom: 18px;
+    line-height: 1.1;
+    word-wrap: break-word;
+  }
+
+  .view-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-grey);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .view-priority-badge {
+    padding: 4px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .view-priority-badge.normal { background: #5a6268; }
+  .view-priority-badge.medium { background: #fd7e14; }
+  .view-priority-badge.high { background: var(--rockwool-red); }
+
+  .view-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .view-meta-item i { color: var(--rockwool-red); }
+
+  .view-attachment {
+    margin: 20px 0;
+    text-align: center;
+    background: #f8f9fa;
+    border: 1px solid var(--border-grey);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .view-attachment img {
+    max-width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .view-attachment-pdf {
+    width: 100%;
+    height: 50vh;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .view-pdf-fallback {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .view-pdf-fallback i {
+    font-size: 48px;
+    color: var(--rockwool-red);
+    margin-bottom: 10px;
+  }
+
+  .view-description {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dark);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #fff8e1;
+    padding: 18px 20px;
+    border-left: 4px solid var(--warning);
+    border-radius: 4px;
+  }
+
+  .view-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .view-categories .category-tag {
+    background: var(--rockwool-red);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .attachment-preview-box {
+    padding: 8px 12px;
+    background: #e8f5e9;
+    border: 1px solid #4caf50;
+    border-radius: 4px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .attachment-remove {
+    background: transparent;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Attachment indikator på post-it */
+  .postit-attachment-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .postit {
+    cursor: pointer;
+  }
+
   .modal-header {
     background: var(--rockwool-red);
     color: white;
@@ -481,7 +638,10 @@
     line-height: 1;
   }
 
-  .modal-body { padding: 24px; }
+  .modal-body {
+    padding: 24px;
+    overflow: visible;
+  }
 
   .form-group {
     margin-bottom: 18px;
@@ -518,36 +678,47 @@
     background: #333;
     color: white;
     text-align: left;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 14px;
+    border-radius: 6px;
     position: absolute;
-    z-index: 100;
-    bottom: 130%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 240px;
+    z-index: 2000;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 280px;
     font-size: 12px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.5;
     opacity: 0;
     transition: opacity 0.2s;
     pointer-events: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   }
 
   .info-icon .tooltip::after {
     content: '';
     position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border: 5px solid transparent;
-    border-top-color: #333;
+    bottom: 100%;
+    left: 4px;
+    border: 6px solid transparent;
+    border-bottom-color: #333;
   }
 
   .info-icon:hover .tooltip {
     visibility: visible;
     opacity: 1;
+  }
+
+  /* Hvis tooltip ville flyde uden for højre side, så placér den til venstre i stedet */
+  .form-group:last-child .info-icon .tooltip,
+  .info-icon.tooltip-left .tooltip {
+    left: auto;
+    right: 0;
+  }
+
+  .form-group:last-child .info-icon .tooltip::after,
+  .info-icon.tooltip-left .tooltip::after {
+    left: auto;
+    right: 4px;
   }
 
   .form-input,
@@ -708,6 +879,8 @@
     .nav-right { flex-wrap: wrap; gap: 8px; }
     .search-box { width: 100%; order: 3; flex-basis: 100%; }
     .postit-grid { grid-template-columns: 1fr; }
+    .modal-large { max-width: 95vw; width: 95vw; max-height: 95vh; }
+    .view-title { font-size: 32px; }
   }
 </style>
 </head>
@@ -850,6 +1023,15 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="form-label">
+            Vedhæft billede eller PDF (valgfri)
+            <i class="info-icon">i<span class="tooltip">Vedhæft et billede (JPG, PNG, GIF) eller PDF-fil til opslaget. Maksimal filstørrelse: 5 MB.</span></i>
+          </label>
+          <input type="file" class="form-input" id="noteAttachment" accept="image/*,application/pdf" />
+          <div id="attachmentPreview" style="margin-top:10px;"></div>
+        </div>
+
       </form>
     </div>
     <div class="modal-footer">
@@ -891,6 +1073,22 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeRemoveModals()">Nej, fortryd</button>
       <button class="btn btn-danger" onclick="executeRemove()">Ja, fjern opslaget</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VIEW POSTIT MODAL (stor visning) ===================== -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal modal-large">
+    <div class="modal-header">
+      <span class="modal-title"><i class="fas fa-sticky-note"></i> Opslag</span>
+      <button class="modal-close" onclick="closeViewModal()">×</button>
+    </div>
+    <div class="modal-body" id="viewModalBody">
+      <!-- Indhold udfyldes dynamisk -->
+    </div>
+    <div class="modal-footer" id="viewModalFooter">
+      <button class="btn btn-secondary" onclick="closeViewModal()">Luk</button>
     </div>
   </div>
 </div>
@@ -1102,15 +1300,27 @@
           : '<span class="email-not-sent"><i class="fas fa-envelope"></i> EMAIL IKKE SENDT</span>')
       : '';
 
+    // event.stopPropagation() forhindrer at view-modal åbnes når man klikker på actions-knapper
     const actionsHtml = isHistory
-      ? `<button class="postit-action-btn" onclick="showHistoryDetail('${note.id}')" title="Se detaljer"><i class="fas fa-eye"></i></button>`
+      ? ''
       : `
-        ${note.requiresEmail && !note.emailSent ? `<button class="postit-action-btn confirm" onclick="markEmailSent('${note.id}')" title="Markér email som sendt"><i class="fas fa-check"></i></button>` : ''}
-        <button class="postit-action-btn remove" onclick="requestRemove('${note.id}')" title="Fjern opslag"><i class="fas fa-times"></i></button>
+        ${note.requiresEmail && !note.emailSent ? `<button class="postit-action-btn confirm" onclick="event.stopPropagation(); markEmailSent('${note.id}')" title="Markér email som sendt"><i class="fas fa-check"></i></button>` : ''}
+        <button class="postit-action-btn remove" onclick="event.stopPropagation(); requestRemove('${note.id}')" title="Fjern opslag"><i class="fas fa-times"></i></button>
       `;
 
+    // Vedhæftnings-ikon hvis der er en fil
+    let attachmentIcon = '';
+    if (note.attachment) {
+      const icon = note.attachment.type === 'pdf' ? 'fa-file-pdf' : 'fa-image';
+      attachmentIcon = `<div class="postit-attachment-icon" title="Indeholder vedhæftning"><i class="fas ${icon}"></i></div>`;
+    }
+
+    const clickHandler = isHistory
+      ? `onclick="showHistoryDetail('${note.id}')"`
+      : `onclick="showViewModal('${note.id}')"`;
+
     return `
-      <div class="postit ${isHistory ? 'history-postit' : ''}" ${isHistory ? `onclick="showHistoryDetail('${note.id}')"` : ''}>
+      <div class="postit ${isHistory ? 'history-postit' : ''}" ${clickHandler}>
         <div class="postit-pin"></div>
         <div class="postit-priority ${note.priority || 'normal'}">${(note.priority || 'normal').toUpperCase()}</div>
         <div class="postit-actions">${actionsHtml}</div>
@@ -1125,6 +1335,7 @@
             ${emailStatusHtml}
           </div>
         </div>
+        ${attachmentIcon}
       </div>
     `;
   }
@@ -1175,6 +1386,68 @@
     renderNotes();
   };
 
+  // === FIL UPLOAD HÅNDTERING ===
+  let pendingAttachment = null;
+
+  document.getElementById('noteAttachment').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    const previewBox = document.getElementById('attachmentPreview');
+
+    if (!file) {
+      pendingAttachment = null;
+      previewBox.innerHTML = '';
+      return;
+    }
+
+    // Tjek filstørrelse (5 MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Filen er for stor. Maksimal størrelse er 5 MB.');
+      e.target.value = '';
+      pendingAttachment = null;
+      previewBox.innerHTML = '';
+      return;
+    }
+
+    // Tjek filtype
+    const isImage = file.type.startsWith('image/');
+    const isPdf = file.type === 'application/pdf';
+
+    if (!isImage && !isPdf) {
+      alert('Kun billeder (JPG, PNG, GIF) og PDF-filer er tilladt.');
+      e.target.value = '';
+      pendingAttachment = null;
+      previewBox.innerHTML = '';
+      return;
+    }
+
+    // Konvertér til base64
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      pendingAttachment = {
+        type: isPdf ? 'pdf' : 'image',
+        mimeType: file.type,
+        name: file.name,
+        size: file.size,
+        data: ev.target.result // base64 dataURL
+      };
+
+      const icon = isPdf ? 'fa-file-pdf' : 'fa-image';
+      previewBox.innerHTML = `
+        <div class="attachment-preview-box">
+          <span><i class="fas ${icon}"></i> ${escapeHtml(file.name)} (${(file.size/1024).toFixed(1)} KB)</span>
+          <button type="button" class="attachment-remove" onclick="clearAttachment()" title="Fjern fil"><i class="fas fa-times"></i></button>
+        </div>
+      `;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  window.clearAttachment = function() {
+    pendingAttachment = null;
+    document.getElementById('noteAttachment').value = '';
+    document.getElementById('attachmentPreview').innerHTML = '';
+  };
+
   // === MODAL: OPRET ===
   window.openCreateModal = function() {
     // Sæt default udløbsdato til 14 dage frem
@@ -1187,6 +1460,8 @@
   window.closeCreateModal = function() {
     document.getElementById('createModal').classList.remove('active');
     document.getElementById('createForm').reset();
+    pendingAttachment = null;
+    document.getElementById('attachmentPreview').innerHTML = '';
   };
 
   // === GEM OPSLAG ===
@@ -1216,6 +1491,7 @@
       expiry,
       requiresEmail,
       emailSent: false,
+      attachment: pendingAttachment, // null eller { type, mimeType, name, size, data }
       createdAt: new Date().toISOString(),
       removed: false,
       logs: [{
@@ -1283,6 +1559,94 @@
     renderNotes();
   };
 
+  // === VIEW POSTIT MODAL (stor visning) ===
+  window.showViewModal = function(id) {
+    const note = allNotes.find(n => n.id === id);
+    if (!note) return;
+
+    const expiryDate = note.expiry ? new Date(note.expiry) : null;
+    const daysToExpiry = expiryDate ? Math.ceil((expiryDate - new Date()) / (1000*60*60*24)) : null;
+    const expirySoon = daysToExpiry !== null && daysToExpiry <= 2 && daysToExpiry >= 0;
+
+    // Render attachment afhængig af type
+    let attachmentHtml = '';
+    if (note.attachment) {
+      if (note.attachment.type === 'image') {
+        attachmentHtml = `
+          <div class="view-attachment">
+            <img src="${note.attachment.data}" alt="${escapeHtml(note.attachment.name)}" />
+            <div style="margin-top:8px; font-size:12px; color:var(--text-muted);">
+              <i class="fas fa-image"></i> ${escapeHtml(note.attachment.name)}
+            </div>
+          </div>
+        `;
+      } else if (note.attachment.type === 'pdf') {
+        attachmentHtml = `
+          <div class="view-attachment">
+            <embed src="${note.attachment.data}" type="application/pdf" class="view-attachment-pdf" />
+            <div style="margin-top:8px; font-size:12px; color:var(--text-muted);">
+              <i class="fas fa-file-pdf"></i> ${escapeHtml(note.attachment.name)}
+              <a href="${note.attachment.data}" download="${escapeHtml(note.attachment.name)}" style="margin-left:10px; color: var(--rockwool-red);">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    const categoriesHtml = (note.categories || []).map(c =>
+      `<span class="category-tag">${escapeHtml(c)}</span>`
+    ).join('');
+
+    const emailStatusHtml = note.requiresEmail
+      ? (note.emailSent
+          ? '<span class="view-meta-item email-sent"><i class="fas fa-check-circle"></i> Email sendt</span>'
+          : '<span class="view-meta-item email-not-sent"><i class="fas fa-envelope"></i> EMAIL IKKE SENDT</span>')
+      : '';
+
+    document.getElementById('viewModalBody').innerHTML = `
+      <div class="view-content">
+        <h2 class="view-title">${escapeHtml(note.title)}</h2>
+
+        <div class="view-meta-bar">
+          <span class="view-priority-badge ${note.priority || 'normal'}">${(note.priority || 'normal').toUpperCase()}</span>
+          <span class="view-meta-item">
+            <i class="fas fa-clock"></i>
+            <span class="${expirySoon ? 'postit-expires soon' : ''}">Udløber: ${formatDate(note.expiry)}</span>
+          </span>
+          <span class="view-meta-item"><i class="fas fa-calendar-plus"></i> Oprettet: ${formatDate(note.createdAt)}</span>
+          ${emailStatusHtml}
+        </div>
+
+        ${attachmentHtml}
+
+        <div class="view-description">${escapeHtml(note.description)}</div>
+
+        <div class="view-categories">${categoriesHtml}</div>
+      </div>
+    `;
+
+    // Opdatér footer med actions for aktive opslag
+    const footer = document.getElementById('viewModalFooter');
+    if (!note.removed) {
+      let footerActions = `<button class="btn btn-secondary" onclick="closeViewModal()">Luk</button>`;
+      if (note.requiresEmail && !note.emailSent) {
+        footerActions = `<button class="btn btn-primary" onclick="markEmailSent('${note.id}'); closeViewModal();"><i class="fas fa-check"></i> Markér email som sendt</button>` + footerActions;
+      }
+      footerActions = `<button class="btn btn-danger" onclick="closeViewModal(); requestRemove('${note.id}');"><i class="fas fa-trash"></i> Fjern opslag</button>` + footerActions;
+      footer.innerHTML = footerActions;
+    } else {
+      footer.innerHTML = `<button class="btn btn-secondary" onclick="closeViewModal()">Luk</button>`;
+    }
+
+    document.getElementById('viewModal').classList.add('active');
+  };
+
+  window.closeViewModal = function() {
+    document.getElementById('viewModal').classList.remove('active');
+  };
+
   // === HISTORIK DETAIL ===
   window.showHistoryDetail = function(id) {
     const note = allNotes.find(n => n.id === id);
@@ -1298,9 +1662,34 @@
         `).join('')
       : '<li class="log-item">Ingen logs registreret</li>';
 
+    // Render attachment hvis det findes
+    let attachmentHtml = '';
+    if (note.attachment) {
+      if (note.attachment.type === 'image') {
+        attachmentHtml = `
+          <div class="view-attachment">
+            <img src="${note.attachment.data}" alt="${escapeHtml(note.attachment.name)}" />
+            <div style="margin-top:8px; font-size:12px; color:var(--text-muted);">
+              <i class="fas fa-image"></i> ${escapeHtml(note.attachment.name)}
+            </div>
+          </div>
+        `;
+      } else if (note.attachment.type === 'pdf') {
+        attachmentHtml = `
+          <div class="view-attachment">
+            <embed src="${note.attachment.data}" type="application/pdf" class="view-attachment-pdf" />
+            <div style="margin-top:8px; font-size:12px; color:var(--text-muted);">
+              <i class="fas fa-file-pdf"></i> ${escapeHtml(note.attachment.name)}
+            </div>
+          </div>
+        `;
+      }
+    }
+
     document.getElementById('historyDetailBody').innerHTML = `
       <div style="margin-bottom: 16px;">
         <h2 style="font-family: 'Caveat', cursive; font-size: 28px; color: var(--rockwool-red); margin-bottom: 8px;">${escapeHtml(note.title)}</h2>
+        ${attachmentHtml}
         <p style="white-space: pre-wrap; line-height: 1.5; padding: 12px; background: #fff8e1; border-left: 3px solid var(--warning); border-radius: 4px;">${escapeHtml(note.description)}</p>
       </div>
 

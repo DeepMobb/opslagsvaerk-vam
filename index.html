@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROCKWOOL Opslagstavle</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome til ikoner -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --rockwool-red: #E2231A;
+    --rockwool-red-dark: #C41E16;
+    --rockwool-red-light: #F4423A;
+    --bg-grey: #F2F2F2;
+    --text-dark: #333333;
+    --text-muted: #6c757d;
+    --border-grey: #dee2e6;
+    --green: #28a745;
+    --green-dark: #218838;
+    --warning: #ffc107;
+    --danger: #dc3545;
+
+    /* Post-it farver */
+    --postit-yellow: #FFF59D;
+    --postit-pink: #F8BBD0;
+    --postit-blue: #BBDEFB;
+    --postit-green: #C8E6C9;
+    --postit-orange: #FFCCBC;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bg-grey);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* === TOP NAVIGATION === */
+  .navbar {
+    background-color: var(--rockwool-red);
+    color: white;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    gap: 24px;
+  }
+
+  .navbar-logo {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .navbar-logo img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .logo-placeholder {
+    background-color: white;
+    color: var(--rockwool-red);
+    font-weight: 700;
+    padding: 8px 14px;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .nav-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+    flex: 1;
+  }
+
+  .nav-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+    font-weight: 600;
+  }
+
+  .nav-btn:hover { background: rgba(255,255,255,0.15); }
+
+  .nav-btn-create {
+    background-color: var(--green);
+    border-color: var(--green);
+    font-weight: 600;
+  }
+
+  .nav-btn-create:hover { background-color: var(--green-dark); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-box {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    width: 220px;
+    font-size: 14px;
+  }
+
+  /* === MAIN CONTENT === */
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #555;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .title-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .title-divider::before,
+  .title-divider::after {
+    content: '';
+    height: 1px;
+    background: #888;
+    width: 100px;
+  }
+
+  .title-divider i {
+    color: #2a3a5e;
+    font-size: 16px;
+  }
+
+  /* === TAB NAVIGATION === */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 25px;
+  }
+
+  .tab-btn {
+    background: white;
+    border: 1px solid var(--border-grey);
+    padding: 10px 24px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 4px 4px 0 0;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--rockwool-red);
+    color: white;
+    border-color: var(--rockwool-red);
+  }
+
+  .tab-btn:hover:not(.active) { background: #f8f9fa; }
+
+  /* === FILTRE === */
+  .filter-bar {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-pill {
+    background: #f1f3f5;
+    border: 1.5px solid transparent;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text-dark);
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+
+  .filter-pill:hover { background: #e9ecef; }
+
+  .filter-pill.active {
+    background: var(--rockwool-red);
+    color: white;
+    border-color: var(--rockwool-red);
+  }
+
+  /* === POST-IT GRID === */
+  .postit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px 5px;
+  }
+
+  .postit {
+    position: relative;
+    padding: 22px 20px 18px;
+    min-height: 220px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .postit:nth-child(5n+1) { background: var(--postit-yellow); transform: rotate(-1deg); }
+  .postit:nth-child(5n+2) { background: var(--postit-pink); transform: rotate(0.8deg); }
+  .postit:nth-child(5n+3) { background: var(--postit-blue); transform: rotate(-0.5deg); }
+  .postit:nth-child(5n+4) { background: var(--postit-green); transform: rotate(1deg); }
+  .postit:nth-child(5n+5) { background: var(--postit-orange); transform: rotate(-0.7deg); }
+
+  .postit:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.18), 0 3px 6px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+
+  .postit-priority {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background: var(--rockwool-red);
+    color: white;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .postit-priority.normal { background: #5a6268; }
+  .postit-priority.medium { background: #fd7e14; }
+  .postit-priority.high { background: var(--rockwool-red); }
+
+  .postit-title {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #2a2a2a;
+    line-height: 1.1;
+    word-wrap: break-word;
+  }
+
+  .postit-description {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  .postit-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(0,0,0,0.2);
+    font-size: 12px;
+    color: #444;
+  }
+
+  .postit-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .category-tag {
+    background: rgba(0,0,0,0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .postit-footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  .postit-expires {
+    color: #555;
+  }
+
+  .postit-expires.soon { color: var(--rockwool-red); font-weight: 700; }
+
+  .postit-email-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .email-not-sent {
+    background: var(--rockwool-red);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    animation: pulse-warning 2s infinite;
+  }
+
+  @keyframes pulse-warning {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .email-sent {
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+
+  .postit-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .postit:hover .postit-actions { opacity: 1; }
+
+  .postit-action-btn {
+    background: rgba(255,255,255,0.85);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .postit-action-btn:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+
+  .postit-action-btn.remove:hover { color: var(--danger); }
+  .postit-action-btn.confirm:hover { color: var(--green); }
+
+  /* Pin/tegn på post-it */
+  .postit-pin {
+    position: absolute;
+    top: -6px;
+    right: 50%;
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+    border-radius: 50%;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    transform: translateX(50%);
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-state i {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  /* === MODAL === */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .modal-header {
+    background: var(--rockwool-red);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .modal-close {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .modal-body { padding: 24px; }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+  }
+
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--rockwool-red);
+    color: white;
+    font-size: 10px;
+    cursor: help;
+    position: relative;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .info-icon .tooltip {
+    visibility: hidden;
+    background: #333;
+    color: white;
+    text-align: left;
+    padding: 8px 12px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 100;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .info-icon .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: #333;
+  }
+
+  .info-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-grey);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.15s;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--rockwool-red);
+  }
+
+  .form-textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border: 1px solid var(--border-grey);
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+
+  .checkbox-label:hover { background: #f8f9fa; }
+  .checkbox-label input[type="checkbox"] { cursor: pointer; }
+
+  .checkbox-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .modal-footer {
+    padding: 16px 24px;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid var(--border-grey);
+  }
+
+  .btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-primary {
+    background: var(--rockwool-red);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--rockwool-red-dark); }
+
+  .btn-secondary {
+    background: white;
+    color: var(--text-dark);
+    border: 1px solid var(--border-grey);
+  }
+  .btn-secondary:hover { background: #f1f3f5; }
+
+  .btn-danger {
+    background: var(--danger);
+    color: white;
+  }
+  .btn-danger:hover { background: #c82333; }
+
+  /* === HISTORIK DETAIL === */
+  .history-detail {
+    background: #f8f9fa;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 4px;
+    border-left: 3px solid var(--rockwool-red);
+  }
+
+  .log-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .log-item {
+    padding: 8px 12px;
+    background: white;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    border-left: 2px solid var(--rockwool-red);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .log-time {
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .history-postit {
+    opacity: 0.75;
+    cursor: pointer;
+  }
+
+  .history-postit:hover { opacity: 1; }
+
+  /* === LOADING === */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+  }
+
+  .firebase-config-warning {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    color: #856404;
+    padding: 12px 16px;
+    margin: 20px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* Responsivt */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 12px;
+      gap: 12px;
+    }
+    .nav-title { flex-basis: auto; font-size: 16px; }
+    .nav-right { flex-wrap: wrap; gap: 8px; }
+    .search-box { width: 100%; order: 3; flex-basis: 100%; }
+    .postit-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-logo">
+    <!-- Indsæt jeres logo.png her -->
+    <img src="logo.png" alt="ROCKWOOL" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div class="logo-placeholder" style="display:none;">ROCKWOOL</div>
+  </div>
+
+  <div class="nav-title">Opslagstavle</div>
+
+  <div class="nav-right">
+    <input type="text" class="search-box" placeholder="Søg i opslag..." id="globalSearch" />
+    <button class="nav-btn nav-btn-create" onclick="openCreateModal()">
+      <i class="fas fa-plus-circle"></i> Opret Opslag
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main-container">
+  <div class="page-header">
+    <h1 class="page-title">OPSLAGSTAVLE</h1>
+    <div class="title-divider"><i class="fas fa-thumbtack"></i></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('active')" id="tab-active">
+      <i class="fas fa-sticky-note"></i> Aktive Opslag
+    </button>
+    <button class="tab-btn" onclick="switchTab('history')" id="tab-history">
+      <i class="fas fa-history"></i> Historik
+    </button>
+  </div>
+
+  <!-- FIREBASE CONFIG WARNING -->
+  <div id="firebaseWarning" class="firebase-config-warning" style="display:none;">
+    <strong>⚠ Firebase ikke konfigureret:</strong> Indsæt din Firebase config i bunden af koden for at gemme data permanent. Appen kører nu i lokal demo-tilstand (data slettes ved reload).
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <div class="filter-label">Filtrér efter afdeling</div>
+    <div class="filter-pills" id="filterPills">
+      <button class="filter-pill active" data-cat="Alle">Alle</button>
+      <button class="filter-pill" data-cat="HO">HO</button>
+      <button class="filter-pill" data-cat="Spinnerkontrolrum">Spinnerkontrolrum</button>
+      <button class="filter-pill" data-cat="Konfektionering">Konfektionering</button>
+      <button class="filter-pill" data-cat="POLK">POLK</button>
+      <button class="filter-pill" data-cat="Lager">Lager</button>
+      <button class="filter-pill" data-cat="Udeområde">Udeområde</button>
+      <button class="filter-pill" data-cat="Kvalitetskontrol">Kvalitetskontrol</button>
+    </div>
+  </div>
+
+  <!-- POST-IT GRID -->
+  <div class="postit-grid" id="postitGrid">
+    <div class="loading"><i class="fas fa-spinner fa-spin"></i> Henter opslag...</div>
+  </div>
+</div>
+
+<!-- ===================== CREATE / EDIT MODAL ===================== -->
+<div class="modal-overlay" id="createModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title"><i class="fas fa-sticky-note"></i> Opret nyt opslag</span>
+      <button class="modal-close" onclick="closeCreateModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="createForm" onsubmit="saveNote(event)">
+
+        <div class="form-group">
+          <label class="form-label">
+            Overskrift
+            <i class="info-icon">i<span class="tooltip">Titlen på dit opslag - bør være kort og beskrivende.</span></i>
+          </label>
+          <input type="text" class="form-input" id="noteTitle" required maxlength="80" placeholder="F.eks. Møde flyttet til onsdag" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Beskrivelse
+            <i class="info-icon">i<span class="tooltip">Tekstboks hvor du kan beskrive eller indsætte information eller besked til modtagerne.</span></i>
+          </label>
+          <textarea class="form-textarea" id="noteDescription" required maxlength="600" placeholder="Skriv beskeden eller information her..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Prioritet
+            <i class="info-icon">i<span class="tooltip">Hvor vigtig er beskeden? Høj prioritet vises tydeligt på opslagstavlen.</span></i>
+          </label>
+          <select class="form-select" id="notePriority">
+            <option value="normal">Normal</option>
+            <option value="medium">Medium</option>
+            <option value="high">Høj prioritet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Graduering – hvem er det relevant for?
+            <i class="info-icon">i<span class="tooltip">Vælg én eller flere kategorier for hvem opslaget er relevant for. Disse filtre vises på forsiden af opslagstavlen.</span></i>
+          </label>
+          <div class="checkbox-group" id="categoryCheckboxes">
+            <label class="checkbox-label"><input type="checkbox" value="Alle"> Alle</label>
+            <label class="checkbox-label"><input type="checkbox" value="HO"> HO</label>
+            <label class="checkbox-label"><input type="checkbox" value="Spinnerkontrolrum"> Spinnerkontrolrum</label>
+            <label class="checkbox-label"><input type="checkbox" value="Konfektionering"> Konfektionering</label>
+            <label class="checkbox-label"><input type="checkbox" value="POLK"> POLK</label>
+            <label class="checkbox-label"><input type="checkbox" value="Lager"> Lager</label>
+            <label class="checkbox-label"><input type="checkbox" value="Udeområde"> Udeområde</label>
+            <label class="checkbox-label"><input type="checkbox" value="Kvalitetskontrol"> Kvalitetskontrol</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Udløb for information
+            <i class="info-icon">i<span class="tooltip">Vælg hvornår informationen skal forsvinde fra opslagsværket. Efter denne dato flyttes opslaget automatisk til Historik.</span></i>
+          </label>
+          <input type="date" class="form-input" id="noteExpiry" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Kræver dette en email?
+            <i class="info-icon">i<span class="tooltip">Hvis det kunne være smart at der også sendes en email ud som kommunikation, for at sikre flere er informeret. Du skal selv sende mailen manuelt og derefter markere checkboxen.</span></i>
+          </label>
+          <div class="checkbox-toggle">
+            <label class="checkbox-label" style="margin:0;">
+              <input type="checkbox" id="noteRequiresEmail">
+              Ja, der skal sendes en email
+            </label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Annullér</button>
+      <button type="submit" form="createForm" class="btn btn-primary">
+        <i class="fas fa-save"></i> Gem opslag
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM REMOVE MODAL #1 ===================== -->
+<div class="modal-overlay" id="removeModal1">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <span class="modal-title"><i class="fas fa-exclamation-triangle"></i> Bekræft fjernelse</span>
+    </div>
+    <div class="modal-body">
+      <p>Er du sikker på, at du ønsker at fjerne dette opslag fra opslagstavlen?</p>
+      <p style="margin-top:10px; color:var(--text-muted); font-size:13px;">Opslaget vil blive flyttet til Historik.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeRemoveModals()">Annullér</button>
+      <button class="btn btn-danger" onclick="confirmRemoveStep2()">Ja, fortsæt</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM REMOVE MODAL #2 ===================== -->
+<div class="modal-overlay" id="removeModal2">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <span class="modal-title"><i class="fas fa-exclamation-triangle"></i> Endelig bekræftelse</span>
+    </div>
+    <div class="modal-body">
+      <p><strong>Sidste advarsel:</strong> Er du HELT sikker på at du vil fjerne opslaget?</p>
+      <p style="margin-top:10px; color:var(--text-muted); font-size:13px;">Denne handling logges i Historik.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeRemoveModals()">Nej, fortryd</button>
+      <button class="btn btn-danger" onclick="executeRemove()">Ja, fjern opslaget</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HISTORY DETAIL MODAL ===================== -->
+<div class="modal-overlay" id="historyDetailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title"><i class="fas fa-history"></i> Opslag detaljer</span>
+      <button class="modal-close" onclick="closeHistoryDetail()">×</button>
+    </div>
+    <div class="modal-body" id="historyDetailBody">
+      <!-- Indhold udfyldes dynamisk -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeHistoryDetail()">Luk</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================================== -->
+<!-- ============== FIREBASE + APP LOGIK ========================== -->
+<!-- =============================================================== -->
+
+<script type="module">
+  // === FIREBASE INTEGRATION ===
+  // ÆNDR DENNE CONFIG TIL DIN EGEN FIREBASE PROJEKT KONFIGURATION
+  // Gå til: https://console.firebase.google.com/ → Vælg dit projekt → Project Settings → General → Your apps → Web app
+  const firebaseConfig = {
+    apiKey: "DIN_API_KEY_HER",
+    authDomain: "DIT_PROJEKT.firebaseapp.com",
+    projectId: "DIT_PROJEKT_ID",
+    storageBucket: "DIT_PROJEKT.appspot.com",
+    messagingSenderId: "DIT_SENDER_ID",
+    appId: "DIT_APP_ID"
+  };
+
+  // Tjek om Firebase er konfigureret
+  const isFirebaseConfigured = firebaseConfig.apiKey !== "DIN_API_KEY_HER";
+
+  let db = null;
+  let collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp, onSnapshot;
+
+  if (isFirebaseConfigured) {
+    try {
+      const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+      const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+      ({ getFirestore: window._gf, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp, onSnapshot } = firestoreModule);
+
+      const app = initializeApp(firebaseConfig);
+      db = firestoreModule.getFirestore(app);
+      console.log("✅ Firebase forbundet");
+    } catch (err) {
+      console.error("❌ Firebase fejl:", err);
+      document.getElementById('firebaseWarning').style.display = 'block';
+    }
+  } else {
+    document.getElementById('firebaseWarning').style.display = 'block';
+  }
+
+  // === LOKAL FALLBACK (in-memory) ===
+  let localNotes = [
+    {
+      id: 'demo1',
+      title: 'Velkommen til opslagstavlen',
+      description: 'Dette er et demo-opslag. Klik på "Opret Opslag" øverst for at tilføje dit eget!',
+      priority: 'medium',
+      categories: ['Alle'],
+      expiry: new Date(Date.now() + 7*24*60*60*1000).toISOString().split('T')[0],
+      requiresEmail: true,
+      emailSent: false,
+      createdAt: new Date().toISOString(),
+      removed: false,
+      logs: [
+        { action: 'Opslag oprettet', timestamp: new Date().toISOString() }
+      ]
+    },
+    {
+      id: 'demo2',
+      title: 'Sikkerhedsrunde fredag kl. 10',
+      description: 'Husk månedens sikkerhedsrunde finder sted fredag den 9. maj kl. 10:00. Mødes ved indgangen til Konfektionering.',
+      priority: 'high',
+      categories: ['Konfektionering', 'POLK'],
+      expiry: new Date(Date.now() + 3*24*60*60*1000).toISOString().split('T')[0],
+      requiresEmail: true,
+      emailSent: true,
+      createdAt: new Date().toISOString(),
+      removed: false,
+      logs: [
+        { action: 'Opslag oprettet', timestamp: new Date().toISOString() },
+        { action: 'Email markeret som sendt', timestamp: new Date().toISOString() }
+      ]
+    }
+  ];
+
+  // === STATE ===
+  let currentTab = 'active';
+  let activeFilter = 'Alle';
+  let pendingRemoveId = null;
+  let allNotes = [];
+
+  // === FIREBASE FUNKTIONER ===
+  async function fbGetNotes() {
+    if (!db) return localNotes;
+    try {
+      const q = query(collection(db, 'opslag'), orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (err) {
+      console.error("Fejl ved hentning:", err);
+      return localNotes;
+    }
+  }
+
+  async function fbAddNote(note) {
+    if (!db) {
+      note.id = 'local_' + Date.now();
+      localNotes.unshift(note);
+      return note.id;
+    }
+    try {
+      const ref = await addDoc(collection(db, 'opslag'), note);
+      return ref.id;
+    } catch (err) {
+      console.error("Fejl ved oprettelse:", err);
+      throw err;
+    }
+  }
+
+  async function fbUpdateNote(id, updates) {
+    if (!db) {
+      const idx = localNotes.findIndex(n => n.id === id);
+      if (idx >= 0) localNotes[idx] = { ...localNotes[idx], ...updates };
+      return;
+    }
+    try {
+      await updateDoc(doc(db, 'opslag', id), updates);
+    } catch (err) {
+      console.error("Fejl ved opdatering:", err);
+    }
+  }
+
+  // === RENDER ===
+  async function renderNotes() {
+    const grid = document.getElementById('postitGrid');
+    grid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Henter opslag...</div>';
+
+    allNotes = await fbGetNotes();
+
+    // Tjek for udløbne opslag og marker dem som fjernet
+    const now = new Date().toISOString().split('T')[0];
+    for (const note of allNotes) {
+      if (!note.removed && note.expiry && note.expiry < now) {
+        const newLogs = [...(note.logs || []), {
+          action: 'Opslag automatisk udløbet',
+          timestamp: new Date().toISOString()
+        }];
+        await fbUpdateNote(note.id, { removed: true, removedAt: new Date().toISOString(), logs: newLogs, removeReason: 'expired' });
+        note.removed = true;
+        note.removedAt = new Date().toISOString();
+        note.logs = newLogs;
+      }
+    }
+
+    let filtered;
+    if (currentTab === 'active') {
+      filtered = allNotes.filter(n => !n.removed);
+      if (activeFilter !== 'Alle') {
+        filtered = filtered.filter(n => n.categories && (n.categories.includes(activeFilter) || n.categories.includes('Alle')));
+      }
+    } else {
+      filtered = allNotes.filter(n => n.removed);
+    }
+
+    // Søgefiltering
+    const searchTerm = document.getElementById('globalSearch').value.toLowerCase().trim();
+    if (searchTerm) {
+      filtered = filtered.filter(n =>
+        (n.title || '').toLowerCase().includes(searchTerm) ||
+        (n.description || '').toLowerCase().includes(searchTerm)
+      );
+    }
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-${currentTab === 'active' ? 'sticky-note' : 'archive'}"></i>
+          <h3>${currentTab === 'active' ? 'Ingen aktive opslag' : 'Historik er tom'}</h3>
+          <p>${currentTab === 'active' ? 'Klik på "Opret Opslag" for at tilføje et nyt.' : 'Fjernede og udløbne opslag vises her.'}</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(note => renderPostit(note)).join('');
+  }
+
+  function renderPostit(note) {
+    const expiryDate = note.expiry ? new Date(note.expiry) : null;
+    const daysToExpiry = expiryDate ? Math.ceil((expiryDate - new Date()) / (1000*60*60*24)) : null;
+    const expirySoon = daysToExpiry !== null && daysToExpiry <= 2 && daysToExpiry >= 0;
+
+    const isHistory = note.removed;
+    const categoriesHtml = (note.categories || []).map(c => `<span class="category-tag">${escapeHtml(c)}</span>`).join('');
+
+    const emailStatusHtml = note.requiresEmail
+      ? (note.emailSent
+          ? '<span class="email-sent"><i class="fas fa-check-circle"></i> Email sendt</span>'
+          : '<span class="email-not-sent"><i class="fas fa-envelope"></i> EMAIL IKKE SENDT</span>')
+      : '';
+
+    const actionsHtml = isHistory
+      ? `<button class="postit-action-btn" onclick="showHistoryDetail('${note.id}')" title="Se detaljer"><i class="fas fa-eye"></i></button>`
+      : `
+        ${note.requiresEmail && !note.emailSent ? `<button class="postit-action-btn confirm" onclick="markEmailSent('${note.id}')" title="Markér email som sendt"><i class="fas fa-check"></i></button>` : ''}
+        <button class="postit-action-btn remove" onclick="requestRemove('${note.id}')" title="Fjern opslag"><i class="fas fa-times"></i></button>
+      `;
+
+    return `
+      <div class="postit ${isHistory ? 'history-postit' : ''}" ${isHistory ? `onclick="showHistoryDetail('${note.id}')"` : ''}>
+        <div class="postit-pin"></div>
+        <div class="postit-priority ${note.priority || 'normal'}">${(note.priority || 'normal').toUpperCase()}</div>
+        <div class="postit-actions">${actionsHtml}</div>
+        <h3 class="postit-title">${escapeHtml(note.title)}</h3>
+        <div class="postit-description">${escapeHtml(note.description)}</div>
+        <div class="postit-meta">
+          <div class="postit-categories">${categoriesHtml}</div>
+          <div class="postit-footer-info">
+            <span class="postit-expires ${expirySoon ? 'soon' : ''}">
+              <i class="fas fa-clock"></i> Udløber: ${formatDate(note.expiry)}
+            </span>
+            ${emailStatusHtml}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function formatDate(d) {
+    if (!d) return '-';
+    const date = new Date(d);
+    return date.toLocaleDateString('da-DK');
+  }
+
+  function formatDateTime(d) {
+    if (!d) return '-';
+    const date = new Date(d);
+    return date.toLocaleDateString('da-DK') + ' kl. ' + date.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // === FILTRE ===
+  document.getElementById('filterPills').addEventListener('click', (e) => {
+    if (e.target.classList.contains('filter-pill')) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      e.target.classList.add('active');
+      activeFilter = e.target.dataset.cat;
+      renderNotes();
+    }
+  });
+
+  // === SØG ===
+  document.getElementById('globalSearch').addEventListener('input', () => {
+    clearTimeout(window._searchTimer);
+    window._searchTimer = setTimeout(renderNotes, 300);
+  });
+
+  // === TABS ===
+  window.switchTab = function(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    renderNotes();
+  };
+
+  // === MODAL: OPRET ===
+  window.openCreateModal = function() {
+    // Sæt default udløbsdato til 14 dage frem
+    const future = new Date();
+    future.setDate(future.getDate() + 14);
+    document.getElementById('noteExpiry').value = future.toISOString().split('T')[0];
+    document.getElementById('createModal').classList.add('active');
+  };
+
+  window.closeCreateModal = function() {
+    document.getElementById('createModal').classList.remove('active');
+    document.getElementById('createForm').reset();
+  };
+
+  // === GEM OPSLAG ===
+  window.saveNote = async function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById('noteTitle').value.trim();
+    const description = document.getElementById('noteDescription').value.trim();
+    const priority = document.getElementById('notePriority').value;
+    const expiry = document.getElementById('noteExpiry').value;
+    const requiresEmail = document.getElementById('noteRequiresEmail').checked;
+
+    const categories = Array.from(
+      document.querySelectorAll('#categoryCheckboxes input[type=checkbox]:checked')
+    ).map(c => c.value);
+
+    if (categories.length === 0) {
+      alert('Vælg mindst én kategori for graduering');
+      return;
+    }
+
+    const note = {
+      title,
+      description,
+      priority,
+      categories,
+      expiry,
+      requiresEmail,
+      emailSent: false,
+      createdAt: new Date().toISOString(),
+      removed: false,
+      logs: [{
+        action: 'Opslag oprettet',
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    try {
+      await fbAddNote(note);
+      closeCreateModal();
+      renderNotes();
+    } catch (err) {
+      alert('Der opstod en fejl: ' + err.message);
+    }
+  };
+
+  // === EMAIL MARKERING ===
+  window.markEmailSent = async function(id) {
+    const note = allNotes.find(n => n.id === id);
+    if (!note) return;
+    const newLogs = [...(note.logs || []), {
+      action: 'Email markeret som sendt',
+      timestamp: new Date().toISOString()
+    }];
+    await fbUpdateNote(id, { emailSent: true, logs: newLogs });
+    renderNotes();
+  };
+
+  // === FJERN OPSLAG (2-trins bekræftelse) ===
+  window.requestRemove = function(id) {
+    pendingRemoveId = id;
+    document.getElementById('removeModal1').classList.add('active');
+  };
+
+  window.confirmRemoveStep2 = function() {
+    document.getElementById('removeModal1').classList.remove('active');
+    document.getElementById('removeModal2').classList.add('active');
+  };
+
+  window.closeRemoveModals = function() {
+    document.getElementById('removeModal1').classList.remove('active');
+    document.getElementById('removeModal2').classList.remove('active');
+    pendingRemoveId = null;
+  };
+
+  window.executeRemove = async function() {
+    if (!pendingRemoveId) return;
+    const note = allNotes.find(n => n.id === pendingRemoveId);
+    if (!note) return;
+
+    const newLogs = [...(note.logs || []), {
+      action: 'Opslag manuelt fjernet',
+      timestamp: new Date().toISOString()
+    }];
+
+    await fbUpdateNote(pendingRemoveId, {
+      removed: true,
+      removedAt: new Date().toISOString(),
+      logs: newLogs,
+      removeReason: 'manual'
+    });
+
+    closeRemoveModals();
+    renderNotes();
+  };
+
+  // === HISTORIK DETAIL ===
+  window.showHistoryDetail = function(id) {
+    const note = allNotes.find(n => n.id === id);
+    if (!note) return;
+
+    const logs = note.logs || [];
+    const logsHtml = logs.length > 0
+      ? logs.map(log => `
+          <li class="log-item">
+            <span><i class="fas fa-circle" style="font-size:6px; vertical-align:middle;"></i> ${escapeHtml(log.action)}</span>
+            <span class="log-time">${formatDateTime(log.timestamp)}</span>
+          </li>
+        `).join('')
+      : '<li class="log-item">Ingen logs registreret</li>';
+
+    document.getElementById('historyDetailBody').innerHTML = `
+      <div style="margin-bottom: 16px;">
+        <h2 style="font-family: 'Caveat', cursive; font-size: 28px; color: var(--rockwool-red); margin-bottom: 8px;">${escapeHtml(note.title)}</h2>
+        <p style="white-space: pre-wrap; line-height: 1.5; padding: 12px; background: #fff8e1; border-left: 3px solid var(--warning); border-radius: 4px;">${escapeHtml(note.description)}</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; margin-bottom: 16px;">
+        <div><strong>Prioritet:</strong> ${escapeHtml(note.priority || 'normal')}</div>
+        <div><strong>Oprettet:</strong> ${formatDate(note.createdAt)}</div>
+        <div><strong>Udløb:</strong> ${formatDate(note.expiry)}</div>
+        <div><strong>Email krævet:</strong> ${note.requiresEmail ? 'Ja' : 'Nej'}</div>
+        <div><strong>Email sendt:</strong> ${note.emailSent ? 'Ja' : 'Nej'}</div>
+        <div style="grid-column: 1/-1;"><strong>Kategorier:</strong> ${(note.categories || []).map(c => escapeHtml(c)).join(', ')}</div>
+      </div>
+
+      <div class="history-detail">
+        <h4 style="margin-bottom: 8px;"><i class="fas fa-list"></i> Aktivitetslog</h4>
+        <ul class="log-list">${logsHtml}</ul>
+      </div>
+    `;
+
+    document.getElementById('historyDetailModal').classList.add('active');
+  };
+
+  window.closeHistoryDetail = function() {
+    document.getElementById('historyDetailModal').classList.remove('active');
+  };
+
+  // Luk modaler ved klik udenfor
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  // === START APP ===
+  renderNotes();
+
+  // Auto-refresh hvert 60. sekund (for at fange udløbne)
+  setInterval(renderNotes, 60000);
+</script>
+
+</body>
+</html>
